@@ -10,7 +10,7 @@ const app = express();
 
 //mount middleware
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({limit: '15mb'}));
 //we don't need express.urlencoded() cause that's used to 
 //process data submitted by a form, and we don't submit forms in a SPA
 
@@ -25,6 +25,7 @@ app.use(require('./config/checkToken'));
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/images', require('./routes/api/images'))
 
 // The following "catch all" route (note the *) is necessary to return the index.html on all non-AJAX requests
 // Now the "catch all" route will serve the index.html whenever:
