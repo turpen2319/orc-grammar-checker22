@@ -18,7 +18,7 @@ const imageSchema = new Schema({
         default: null
     },
 
-    grammarData: {
+    textData: {
         type: Object, 
         default: null
     },

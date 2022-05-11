@@ -6,9 +6,9 @@ export default function ImgPreview({ imgSrc }) {
 
     async function handleImgSubmit() {
         const cleanedSrc = imgSrc.slice(imgSrc.indexOf(',') + 1); //remove file metadata for buffer encoding/decoding
-        console.log({cleanedSrc});
+        //console.log({cleanedSrc});
         const checkedImg = await imagesApi.createCheckedImg(cleanedSrc);
-        console.log(checkedImg.imgSrc)
+        //console.log(checkedImg.imgSrc)
         navigate('/')
 
     }

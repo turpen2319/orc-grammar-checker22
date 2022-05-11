@@ -32,7 +32,8 @@ export async function getAll() {
 
 export async function getOne(imageId) {
     const token = getToken();
-
+    console.log("GET ONE CLIENT API FUNC")
+    console.log({imageId})
     const res = await fetch(`${BASE_URL}/${imageId}`, {
         method: 'GET',
         headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}
