@@ -31,21 +31,12 @@ export default function ImageCorrections() {
                             return(
                                 <BoundingBox
                                     //values are calculated in percentages relative to original image size
-                                    left={word.boundingBox.left - 5} 
+                                    left={word.boundingBox.left - 1} 
                                     right={word.boundingBox.right}
                                     top={word.boundingBox.top}
                                     bottom={word.boundingBox.bottom}
                                 
                                 />
-                                // <BoundingBox
-                                //     //values are calculated in percentages relative to original image size
-                                //     left={word.x1 - 15} 
-                                //     right={correctedImg.textData.imgSize[0] - word.x3 - 5}
-                                //     top={word.y1}
-                                //     bottom={correctedImg.textData.imgSize[1] - word.y4}
-                                //     width={correctedImg.textData.imgSize[0]}
-                                //     height={correctedImg.textData.imgSize[1]}
-                                // />
                             )
                         })
                     }

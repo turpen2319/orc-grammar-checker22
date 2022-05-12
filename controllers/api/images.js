@@ -1,5 +1,6 @@
 const Image = require('../../models/image');
 const { getHandwritingData } = require('./google-handwriting');
+const { getGrammarData } = require('./grammar-check');
 const fs = require('fs');
 
 module.exports = {
@@ -11,11 +12,13 @@ module.exports = {
 async function create(req, res) {
     try {
         const imgSrc = req.body.imgSrcBase64;
-        const textData = await handleGoogleApiCall(imgSrc);
-        console.log("TEXT DATA",textData);
-        console.log('BOUNDING BOX', textData.words[0].boundingBox)
+        const imageTextData = await handleGoogleApiCall(imgSrc);
+        
+        console.log('BOUNDING BOX', imageTextData.words[0].boundingBox)
+        const grammarAndImageTextData = await integrateGrammarAndImageTextData(imageTextData);
+        console.log('COMPLETE DATA',grammarAndImageTextData);
         const buffer = Buffer.from(imgSrc, "base64"); //convert to binary
-        const newImage = await Image.create({user: req.user, imgSrc: buffer, textData: textData}) //storing src as binary...less expensive
+        const newImage = await Image.create({user: req.user, imgSrc: buffer, textData: grammarAndImageTextData}) //storing src as binary...less expensive
         //Send back original base64 imgSrc, not binary. See 'transform' option on the image model
         res.json(newImage);
     } catch (error) {
@@ -65,4 +68,22 @@ async function handleGoogleApiCall(base64Str) {
     });
 
     return textData;
+}
+
+
+async function integrateGrammarAndImageTextData(textData) {
+     const grammarData = await getGrammarData(textData.fullText);
+     console.log('GRAMMAR MATCHES FROM INT FUNC', grammarData.matches, 'WORDS DATA FROM FUNC', textData.words)
+     textData['corrections'] = []
+     for(let mistake of grammarData.matches) {
+         for(let word of textData.words) {
+             console.log('MISTAKE:', mistake, 'WORD:', word, 'WORD OFFSET:', word['offset'])
+             if(mistake.offset === word.offset && word.confidence > 0.85) {
+                mistake['boundingBox'] = word.boundingBox;
+                textData['corrections'].push(mistake);
+                break;
+             }
+         }
+     }
+     return textData;
 }

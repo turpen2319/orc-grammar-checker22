@@ -22,7 +22,7 @@ async function getHandwritingData(fileName) {
     const fullText = fullTextAnnotation.text;
 	textData.fullText = fullText;
     console.log(`Full text: ${fullText}`);
-    //let cursor = 0;
+    let cursor = 0;
     fullTextAnnotation.pages.forEach(page => {
 		const imageWidth = fullTextAnnotation.pages[0].width;
 		const imageHeight = fullTextAnnotation.pages[0].height;
@@ -40,7 +40,9 @@ async function getHandwritingData(fileName) {
 				// console.log(`Word confidence: ${word.confidence}`);
 				const vertices = word.boundingBox.vertices;
 				// console.log('Verticies', vertices);  
-				const wordLength = wordText.length;
+		
+				const offset = fullText.indexOf(wordText, cursor); //starting index of current word at or after the cursor position "hello hello".indexOf('hello', 0) --> gives first hello and indexOf('hello', 5) --> gives second
+				cursor = offset + wordText.length; //update cursor position. In above example, cursor would be at idx 0+5 --> 5  "hello|hello"
 
 				textData.words.push({
 					text: wordText,
@@ -51,6 +53,7 @@ async function getHandwritingData(fileName) {
 						top: ((vertices[1].y > vertices[0].y ? vertices[1].y : vertices[0].y) / imageHeight) * 100, // (bottom-most y / height) * 100 
 						bottom: ((imageHeight - (vertices[3].y > vertices[2].y ? vertices[3].y : vertices[2].y)) / imageHeight) * 100 // ((height - topmost y) / height) * 100
 					},
+					offset: offset,
 					x1: vertices[0].x,
 					y1: vertices[0].y,
 					x2: vertices[1].x,

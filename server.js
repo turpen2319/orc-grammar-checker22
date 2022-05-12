@@ -4,7 +4,6 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 require('dotenv').config(); //we need this to access environmental variable in our projects
 require('./config/database');
-
 //creating an instance of express called 'app'
 const app = express();
 
@@ -40,6 +39,7 @@ app.use('/api/images', require('./routes/api/images'))
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
+
 
 
 
