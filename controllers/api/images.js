@@ -51,7 +51,7 @@ async function show(req, res) {
 const path = require('path');
 
 async function handleGoogleApiCall(base64Str) {
-    const fileName = `${Date.now()}.png`
+    const fileName = path.join(__dirname, 'uploads', `${Date.now()}.png`);
     try {
         //create file (handwriting api won't accept base64 as input...must be local file)
         fs.writeFile(fileName, base64Str, {encoding: 'base64'}, (err) => {
@@ -61,7 +61,7 @@ async function handleGoogleApiCall(base64Str) {
         
         //call api
         console.log("DIRNAME!!!",__dirname)
-        const textData = await getHandwritingData(path.join(__dirname, 'uploads', 'handwriting-example.png'))
+        const textData = await getHandwritingData(fileName);
         //console.log("TEXT DATA",textData)
     
         //delete file
