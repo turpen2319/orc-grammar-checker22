@@ -50,22 +50,26 @@ async function show(req, res) {
 /*-------Helper Functions--------*/
 async function handleGoogleApiCall(base64Str) {
     const fileName = `${Date.now()}.png`
-
-    //create file (handwriting api won't accept base64 as input...must be local file)
-    fs.writeFile(fileName, base64Str, {encoding: 'base64'}, (err) => {
-        if (err) return console.error(err)
-        console.log('file saved to ', fileName)
-    })
+    try {
+        //create file (handwriting api won't accept base64 as input...must be local file)
+        fs.writeFile(fileName, base64Str, {encoding: 'base64'}, (err) => {
+            if (err) return console.error(err)
+            console.log('file saved to ', fileName)
+        })
+        
+        //call api
+        const textData = await getHandwritingData(fileName)
+        //console.log("TEXT DATA",textData)
     
-    //call api
-    const textData = await getHandwritingData(fileName)
-    //console.log("TEXT DATA",textData)
-
-    //delete file
-    fs.unlink(fileName, (err) => {
-        if (err) throw err;
-        console.log('File deleted');
-    });
+        //delete file
+        fs.unlink(fileName, (err) => {
+            if (err) throw err;
+            console.log('File deleted');
+        });
+        
+    } catch (error) {
+       console.log("ERRORRR", error); 
+    }
 
     return textData;
 }
