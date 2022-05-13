@@ -18,11 +18,11 @@ async function getHandwritingData(fileName) {
     const textData = {fullText: '', imgSize: [], words: []}; //imgSize: [width, height]
 
     const [result] = await client.documentTextDetection(fileName);
+	console.log("RESULTTTTTTT", result)
     const fullTextAnnotation = result.fullTextAnnotation;
-	console.log("FULL TEXTTTTTTTT", fullTextAnnotation)
     const fullText = fullTextAnnotation.text;
 	textData.fullText = fullText;
-    console.log(`Full text: ${fullText}`);
+    //console.log(`Full text: ${fullText}`);
     let cursor = 0;  
     fullTextAnnotation.pages.forEach(page => {
 		const imageWidth = fullTextAnnotation.pages[0].width;
@@ -30,7 +30,7 @@ async function getHandwritingData(fileName) {
 		textData.imgSize[0] = imageWidth;
 		textData.imgSize[1] = imageHeight;  
 
-		console.log({imageWidth, imageHeight})
+		//console.log({imageWidth, imageHeight})
 		page.blocks.forEach(block => {
 			// console.log(`Block confidence: ${block.confidence}`);
 			block.paragraphs.forEach(paragraph => {
