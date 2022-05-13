@@ -19,6 +19,7 @@ async function getHandwritingData(fileName) {
 
     const [result] = await client.documentTextDetection(fileName);
     const fullTextAnnotation = result.fullTextAnnotation;
+	console.log("FULL TEXTTTTTTTT", fullTextAnnotation)
     const fullText = fullTextAnnotation.text;
 	textData.fullText = fullText;
     console.log(`Full text: ${fullText}`);
