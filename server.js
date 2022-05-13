@@ -36,7 +36,7 @@ app.use('/api/images', require('./routes/api/images'))
 // However, the /orders/new part of the URL is supposed to be for the client router - not the server! But there it is, and the server has to deal with it...
 // The server deals with it by, thanks to the "catch all" route, sending back index.html - which is what we want.
 // After index.html loads in the browser, the React app's client-side routing will render components based upon the /orders/new path in the address bar.
-app.get('/*', function(req, res) {
+app.get('/*', function(req, res) { //this serves the root html from the build folder
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
