@@ -27,7 +27,7 @@ async function getHandwritingData(fileName) {
 		const imageWidth = fullTextAnnotation.pages[0].width;
 		const imageHeight = fullTextAnnotation.pages[0].height;
 		textData.imgSize[0] = imageWidth;
-		textData.imgSize[1] = imageHeight;
+		textData.imgSize[1] = imageHeight;  
 
 		console.log({imageWidth, imageHeight})
 		page.blocks.forEach(block => {
