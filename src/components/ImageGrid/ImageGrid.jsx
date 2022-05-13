@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import * as imagesApi from '../../utilities/images-api';
-import ImageCard from "../../components/ImageCard/ImageCard";
+import ImageCard from "../ImageCard/ImageCard";
+import './ImageGrid.css'
 
-export default function ImageIndex() {
+export default function ImageGrid() {
     const [imgIndex, setImgIndex] = useState([]);
 
 
@@ -17,9 +17,8 @@ export default function ImageIndex() {
     }, [])
 
     return (
-        <>
-            <h1>Index page</h1>
+        <div className="ImageGrid">
             {imgIndex.map(img => <ImageCard img={img} />)}
-        </>
+        </div>
     )
 }

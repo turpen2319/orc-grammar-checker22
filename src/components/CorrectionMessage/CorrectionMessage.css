@@ -1,0 +1,33 @@
+.CorrectionMessage {
+    padding: 8px;
+}
+
+.dot {
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 2px 6px 2px 0px;
+}
+
+.short-msg {
+    opacity: 0.6;
+    font-size: smaller;
+    font-weight: lighter;
+}
+
+.replacement {
+    background-color: var(--blue);
+    border-radius: 3px;
+    color: white;
+    padding: 2px 6px 3px;
+    font-weight: bolder;
+}
+
+.incorrect-txt {
+    font-weight: bolder;
+}
+
+.suggestion {
+    margin-bottom: 12px;
+}

@@ -1,0 +1,27 @@
+.ImageCorrections {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 5vh auto;  
+}
+
+.ImageCorrections img {
+    max-height: 170vh;
+    min-width: 60vw;
+    max-width: 100vw;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.corrections-container {
+    float: left;
+    position: relative;
+    grid-row: 2/3;
+    grid-column: 1/2;
+}
+
+.corrections-info {
+    grid-row: 2/3;
+    grid-column: 2/3;
+}
+
+
+

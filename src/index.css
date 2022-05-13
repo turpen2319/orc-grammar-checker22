@@ -1,13 +1,15 @@
 /* CSS Custom Properties */
 :root {
   --white: #FFFFFF;
-  --tan-1: #FBF9F6;
+  --calm-white: rgb(246, 246, 246);
+  --grey-1: rgb(50, 52, 57);
   --tan-2: #E7E2DD;
   --tan-3: #E2D9D1;
   --tan-4: #D3C1AE;
   --orange: #F67F00;
-  --text-light: #968c84;
-  --text-dark: #615954;
+  --blue: rgb(83, 110, 217);
+  --text-light: rgb(80, 82, 87);
+  --text-dark: rgb(40, 42, 47);
 }
 
 *, *:before, *:after {
@@ -21,8 +23,8 @@ body {
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--tan-4);
-  padding: 2vmin;
+  background-color: var(--calm-white);
+  padding: 0 2vmin 2vmin 0;
   height: 100vh;
 }
 
@@ -69,7 +71,7 @@ code {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: var(--tan-1);
+  background-color: var(--grey-1);
   color: var(--text-dark);
   border: .1vmin solid var(--tan-3);
   border-radius: 1vmin;
@@ -80,7 +82,7 @@ code {
 
 .form-container {
   padding: 3vmin;
-  background-color: var(--tan-1);
+  background-color: var(--grey-1);
   border: .1vmin solid var(--tan-3);
   border-radius: 1vmin;
 }

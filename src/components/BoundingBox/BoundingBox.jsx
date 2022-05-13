@@ -1,4 +1,3 @@
-
 export default function BoundingBox({ left, right, top, bottom, width, height }) {
     return (
         <div style={{
@@ -7,7 +6,7 @@ export default function BoundingBox({ left, right, top, bottom, width, height })
             right: `${right}%`,
             top: `${top}%`,
             bottom: `${bottom}%`,
-            border: 'solid 1px limegreen',
+            borderBottom: 'solid 2px limegreen',
             backgroundColor: "rgba(68,205,77, 0.2)",
             display: 'flex',
             justifyContent: 'center',

@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
-export default function ImageCard({ img }) {
+import { useState, useEffect } from 'react';
+import './ImageCard.css';
+export default function ImageCard({ img, window }) {
     return (
-        <Link to={`/corrections/${img._id}`}>
-            <img src={`data:image/png;base64,${img.imgSrc}`} width={200}/>
-        </Link>
+        <div className='ImageCard'>
+            <Link to={`/corrections/${img._id}`}>
+                <img src={`data:image/png;base64,${img.imgSrc}`} width={200}/>
+            </Link>
+        </div>
     )
 }
