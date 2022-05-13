@@ -52,7 +52,8 @@ async function handleGoogleApiCall(base64Str) {
     const fileName = `${Date.now()}.png`
     try {
         //create file (handwriting api won't accept base64 as input...must be local file)
-        fs.writeFile(fileName, base64Str, {encoding: 'base64'}, (err) => {
+        fs.writeFile(fileName, base64Str, {encoding: 'base64'}, (err, doc) => {
+            console.log("DOC!!!!!", doc);
             if (err) return console.error(err)
             console.log('file saved to ', fileName)
         })
