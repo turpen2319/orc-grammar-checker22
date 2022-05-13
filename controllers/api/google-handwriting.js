@@ -17,6 +17,7 @@ async function getHandwritingData(fileName) {
 	//my data
     const textData = {fullText: '', imgSize: [], words: []}; //imgSize: [width, height]
 	
+	console.log("FILENAMEEEE",fileName);
     const [result] = await client.documentTextDetection(fileName);
 	console.log("RESULTTTTTTT", result)
     const fullTextAnnotation = result.fullTextAnnotation;
