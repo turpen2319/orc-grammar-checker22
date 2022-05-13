@@ -10,10 +10,11 @@ module.exports = {
 }
 
 async function create(req, res) {
+    console.log('hitting create')
     try {
         const imgSrc = req.body.imgSrcBase64;
         const imageTextData = await handleGoogleApiCall(imgSrc);
-        
+        console.log("GOOGLE Working",imageTextData)
         console.log('BOUNDING BOX', imageTextData.words[0].boundingBox)
         const grammarAndImageTextData = await integrateGrammarAndImageTextData(imageTextData);
         console.log('COMPLETE DATA',grammarAndImageTextData);
@@ -24,7 +25,9 @@ async function create(req, res) {
     } catch (error) {
         //client will check for non-2xx status code
         //400 = bad request
+        console.log("ERROR FROM CREATE", error);
         res.status(400).json(error);
+        
     }
 }
 
@@ -52,17 +55,18 @@ const path = require('path');
 
 async function handleGoogleApiCall(base64Str) {
     const fileName = path.join(__dirname, 'uploads', `${Date.now()}.png`);
+    //const fileName = `${Date.now()}.png`;
     try {
         //create file (handwriting api won't accept base64 as input...must be local file)
         fs.writeFile(fileName, base64Str, {encoding: 'base64'}, (err) => {
-            console.log("READ FILE", fs.readFile(fileName, 'base64', (err, data) => {
-                if(err) {
-                    console.log("FILE ERR", err)
-                }
-                console.log("FILE DATA", data);
-            }
+            // console.log("READ FILE", fs.readFile(fileName, 'base64', (err, data) => {
+            //     if(err) {
+            //         console.log("FILE ERR", err)
+            //     }
+            //     console.log("FILE DATA", data);
+            // }
             
-            ));
+            // ));
             if (err) return console.error(err)
             console.log('file saved to ', fileName)
         })
@@ -70,19 +74,17 @@ async function handleGoogleApiCall(base64Str) {
         //call api
         console.log("DIRNAME!!!",__dirname)
         const textData = await getHandwritingData(fileName);
-        //console.log("TEXT DATA",textData)
+        console.log("TEXT DATA",textData)
     
         //delete file
         fs.unlink(fileName, (err) => {
             if (err) throw err;
             console.log('File deleted');
         });
-        
+        return textData;
     } catch (error) {
        console.log("ERRORRR", error); 
     }
-
-    return textData;
 }
 
 
