@@ -59,7 +59,7 @@ async function handleGoogleApiCall(base64Str) {
         })
         
         //call api
-        const textData = await getHandwritingData(fileName)
+        const textData = await getHandwritingData('../../uploads/handwriting-example.png')
         //console.log("TEXT DATA",textData)
     
         //delete file
