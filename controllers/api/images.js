@@ -55,7 +55,7 @@ async function handleGoogleApiCall(base64Str) {
     try {
         //create file (handwriting api won't accept base64 as input...must be local file)
         fs.writeFile(fileName, base64Str, {encoding: 'base64'}, (err) => {
-            console.log("READ FILE", fs.readFile(fileName, (err, data) => {
+            console.log("READ FILE", fs.readFile(fileName, 'base64', (err, data) => {
                 if(err) {
                     console.log("FILE ERR", err)
                 }
