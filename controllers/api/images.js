@@ -81,7 +81,9 @@ async function handleGoogleApiCall(base64Str) {
             if (err) throw err;
             console.log('File deleted');
         });
+       
         return textData;
+
     } catch (error) {
        console.log("ERRORRR", error); 
     }

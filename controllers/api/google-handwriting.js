@@ -5,7 +5,7 @@ module.exports = {
 /**
  * TODO(developer): Uncomment the following line before running the sample.
  */
-const fileName = '../../uploads/handwriting-example.png';
+
 
 // Read a local image as a text document
 async function getHandwritingData(fileName) {
@@ -16,9 +16,9 @@ async function getHandwritingData(fileName) {
 
 	//my data
     const textData = {fullText: '', imgSize: [], words: []}; //imgSize: [width, height]
-
+	
     const [result] = await client.documentTextDetection(fileName);
-	//console.log("RESULTTTTTTT", result)
+	console.log("RESULTTTTTTT", result)
     const fullTextAnnotation = result.fullTextAnnotation;
     const fullText = fullTextAnnotation.text;
 	textData.fullText = fullText;
