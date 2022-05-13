@@ -22,7 +22,7 @@ async function getHandwritingData(fileName) {
     const fullText = fullTextAnnotation.text;
 	textData.fullText = fullText;
     console.log(`Full text: ${fullText}`);
-    let cursor = 0;
+    let cursor = 0;  
     fullTextAnnotation.pages.forEach(page => {
 		const imageWidth = fullTextAnnotation.pages[0].width;
 		const imageHeight = fullTextAnnotation.pages[0].height;
