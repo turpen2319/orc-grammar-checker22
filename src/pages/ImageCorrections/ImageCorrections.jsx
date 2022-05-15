@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BoundingBox from "../../components/BoundingBox/BoundingBox";
 import CorrectionMessage from "../../components/CorrectionMessage/CorrectionMessage";
+import SpeedDialMenu from "../../components/SpeedDial/SpeedDial";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import * as imageApi from "../../utilities/images-api";
 import './ImageCorrections.css';
 
-export default function ImageCorrections() {
+export default function ImageCorrections({ setUser }) {
     const [correctedImg, setCorrectedImg] = useState(null);
     const { imageId } = useParams();
-    
+    const isMobile = useMediaQuery('(max-width:480px)');
 
     
     useEffect(function() {
@@ -22,6 +24,7 @@ export default function ImageCorrections() {
 
     return (
         <main className="ImageCorrections">
+            <SpeedDialMenu setUser={setUser} />
             {
             correctedImg
             ? (
@@ -44,6 +47,7 @@ export default function ImageCorrections() {
                         }     
                     </div>
                     <div className="corrections-info">
+                        <div><span className="corrections-count">{correctedImg.textData.corrections.length}</span><span>All suggestions</span></div>
                         {
                             correctedImg.textData.corrections.map((correction, idx) => {
                                 const { text, offset, length } = correction.context;

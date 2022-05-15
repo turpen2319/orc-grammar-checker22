@@ -1,20 +1,15 @@
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import Switch from '@mui/material/Switch';
 import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import AddAPhotoRoundedIcon from '@mui/icons-material/AddAPhotoRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
+import { useNavigate } from 'react-router-dom';
+import * as userService from '../../utilities/users-service'
+
+
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: 'absolute',
@@ -24,64 +19,40 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   },
 }));
 
-const actions = [
-  { icon: <FileCopyIcon />, name: 'Copy' },
-  { icon: <SaveIcon />, name: 'Save' },
-  { icon: <PrintIcon />, name: 'Print' },
-  { icon: <ShareIcon />, name: 'Share' },
-];
 
-export default function PlaygroundSpeedDial() {
-  const [direction, setDirection] = React.useState('up');
-  const [hidden, setHidden] = React.useState(false);
 
-  const handleDirectionChange = (event) => {
-    setDirection(event.target.value);
-  };
 
-  const handleHiddenChange = (event) => {
-    setHidden(event.target.checked);
-  };
-
-  return (
-    <Box sx={{ transform: 'translateZ(0px)', flexGrow: 1 }}>
-      <FormControlLabel
-        control={
-          <Switch checked={hidden} onChange={handleHiddenChange} color="primary" />
-        }
-        label="Hidden"
-      />
-      <FormControl component="fieldset" sx={{ mt: 1, display: 'flex' }}>
-        <FormLabel component="legend">Direction</FormLabel>
-        <RadioGroup
-          aria-label="direction"
-          name="direction"
-          value={direction}
-          onChange={handleDirectionChange}
-          row
-        >
+export default function SpeedDialMenu({ setUser }) {
+	const navigate = useNavigate()
     
-          <FormControlLabel value="right" control={<Radio />} label="Right" />
-          <FormControlLabel value="down" control={<Radio />} label="Down" />
-          
-        </RadioGroup>
-      </FormControl>
-      <Box sx={{ position: 'relative', mt: 3, height: 320 }}>
-        <StyledSpeedDial
-          ariaLabel="SpeedDial minimal menu"
-          hidden={hidden}
-          icon={<MenuOpenRoundedIcon />}
-          direction={direction}
-        >
-          {actions.map((action) => (
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-            />
-          ))}
-        </StyledSpeedDial>
-      </Box>
-    </Box>
-  );
+	const actions = [
+        { icon: <HomeRoundedIcon />, name: 'Home', cb: () => navigate('/') },
+        { icon: <AddAPhotoRoundedIcon />, name: 'New', cb: ()=> navigate('/webcam')  },
+        { icon: <LogoutRoundedIcon />, name: 'Logout', cb: ()=> {
+			userService.logOut()
+			setUser(null)
+		} },
+    ];
+	
+
+	return (
+		<Box sx={{ transform: 'translateZ(0px)', flexGrow: 1, zIndex:10, position: 'sticky', top: 3, left: 3 }}>
+			<Box sx={{ position: 'relative', height: 'fit-content' }}>
+				<StyledSpeedDial
+				ariaLabel="SpeedDial minimal menu"
+				icon={<MenuOpenRoundedIcon />}
+				direction={'right'}
+				>
+				{actions.map((action) => (
+					<SpeedDialAction
+					key={action.name}
+					icon={action.icon}
+					tooltipTitle={action.name}
+					onClick={() => action.cb()}
+					/>
+				))}
+				</StyledSpeedDial>
+			</Box>
+		</Box>
+	);
 }

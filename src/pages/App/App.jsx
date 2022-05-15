@@ -24,7 +24,7 @@ export default function App() {
             {/* <ResponsiveDrawer user={user} setUser={setUser}/> */}
             <Routes>
               <Route path="/" element={<ImagePage user={user} setUser={setUser}/>} />
-              <Route path="/corrections/:imageId" element={<ImageCorrections />} />
+              <Route path="/corrections/:imageId" element={<ImageCorrections setUser={setUser} />} />
               <Route path="/webcam" element={<WebcamComponent imgSrc={imgSrc} setImgSrc={setImgSrc} />} />
               <Route path="/preview" element={<ImgPreview imgSrc={imgSrc} />} />
             </Routes> 

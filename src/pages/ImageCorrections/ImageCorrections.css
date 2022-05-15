@@ -1,27 +1,40 @@
 .ImageCorrections {
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-rows: 5vh auto;  
+    grid-template-rows: 0vh auto;  
 }
 
 .ImageCorrections img {
     max-height: 170vh;
     min-width: 60vw;
     max-width: 100vw;
-    border-bottom-right-radius: 8px;
-    border-top-right-radius: 8px;
+    border-radius: 8px;
 }
+
 .corrections-container {
     float: left;
     position: relative;
     grid-row: 2/3;
     grid-column: 1/2;
+    margin: 10px;
 }
 
 .corrections-info {
     grid-row: 2/3;
     grid-column: 2/3;
+    margin: 10px;
+}
+
+.speed-dial {
+    grid-row: 1/2
 }
 
 
+.corrections-count {
+    background-color: var(--grey-1);
+    color: var(--calm-white);
+    padding: 0px 8px;
+    margin: 8px;
+    border-radius: 10px;
+}
 

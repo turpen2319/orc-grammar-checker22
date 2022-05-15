@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';
 
-export default function LoginForm({ setUser }) {
+export default function LoginForm({ setUser, setSignUpActive }) {
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -37,6 +37,7 @@ export default function LoginForm({ setUser }) {
           <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
           <button type="submit">LOG IN</button>
         </form>
+        <p><a onClick={() => setSignUpActive(true)}>Create an Account</a></p>
       </div>
       <p className="error-message">&nbsp;{error}</p>
     </div>
