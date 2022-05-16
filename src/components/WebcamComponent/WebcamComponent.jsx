@@ -12,7 +12,7 @@ export default function WebcamComponent({ imgSrc, setImgSrc }) {
     const webcamRef = useRef(null);
     const navigate = useNavigate();
     
-    const width = window.innerWidth > 480 ? 480 : window.innerWidth
+    const width = window.innerWidth > 450 ? 450 : window.innerWidth
     
     const capture = useCallback(() => {
         const imageSrc = webcamRef.current.getScreenshot({width: width, height: width*1.414});
@@ -22,7 +22,8 @@ export default function WebcamComponent({ imgSrc, setImgSrc }) {
     
     //let history = useHistory(); //need this for react router
     const videoConstraints = {
-      aspectRatio: 0.707,
+      width: width,
+      height: width*1.414,
       facingMode: facingEnvironment ? 'environment' : 'user'
     };
 

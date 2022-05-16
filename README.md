@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Grammar Vison 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+Full stack MERN app that checks grammar and spelling from images of handwriting. Take a photo of your document from the in-app camera, submit it, and see how you can improve your writing! Link --> https://grammar-vision.wl.r.appspot.com
 
-### `npm start`
+This app utilizes optical character recognition (ORC) to convert images of handwriting into plain text, which is then checked for spelling and grammar. The grammar data is integrated with the image data in order to annotate the original image.   
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Screenshots
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## _Corrected Image (mobile):_
 
-### `npm test`
+<img src="./screenshots/gv-hints-mobile.png" width = 380px>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## _Corrected Image (desktop):_
 
-### `npm run build`
+<img src="./screenshots/gv-hints-desktop.png" width=80%> 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## _Home Page (desktop):_
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img src="./screenshots/gv-home.png" width=80%>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## _Camera (mobile):_
 
-### `npm run eject`
+<img src="./screenshots/gv-camera-mobile.png" width = 380px>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## _Design:_
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<img src="./screenshots/gv-erd.png" width = 80%>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Technologies Used
+- MERN Stack
+- Google Vision Client Library
+- Google Cloud Platform (App Engine)
+- GrammarBot API
+- JWT (JSON Web Token) Auth
+- Material UI
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Getting Started
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ - ### [APP LINK](https://grammar-vision.wl.r.appspot.com/)
 
-### Code Splitting
+   
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Next Steps
+- Currently I am storing images in my database as BLOBs, but I'd like to explore alternatives such as SFS (Secure File System) storage. 
+- I opted for the home page to not render the actual images in the card galary to reduce load times, but I'd like to make the home page more image-centric in the future
+- Enable search feature
+- Let users organize their documents into user-defined categories
