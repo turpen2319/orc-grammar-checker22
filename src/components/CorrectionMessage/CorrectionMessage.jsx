@@ -9,7 +9,7 @@ import { Divider } from '@mui/material';
 import { blue } from '@mui/material/colors';
 
 export default function CorrectionMessage({ message, issueType, shortMessage, replacements, incorrectText }) {
-    const color = issueType === 'spelling' ? 'var(--red)' : 'var(--blue)'
+    const color = issueType === 'misspelling' ? 'var(--red)' : 'var(--blue)'
 
     return (
         <div className='CorrectionMessage'>

@@ -27,6 +27,7 @@ const imageSchema = new Schema({
     timestamps: true,
     toJSON: {
         transform: function(doc, ret) {
+            if (!ret.imgSrc) return ret
             ret.imgSrc = doc.imgSrc.toString('base64'); //sends imgSrc as base64 instead of buffer
             return ret
         }

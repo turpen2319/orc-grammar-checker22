@@ -33,8 +33,15 @@ async function create(req, res) {
 
 async function index(req, res) {
     try {
-        const images = await Image.find({user: req.user})
-        res.json(images);
+        Image
+            .find({user: req.user})
+            .sort('-date')
+            .select('-imgSrc')
+            .exec(
+                function(err, imgs) {
+                    res.json(imgs)
+                }
+                )
     } catch (error) {
         res.status(400).json(error);
     }

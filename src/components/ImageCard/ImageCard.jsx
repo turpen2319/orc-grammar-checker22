@@ -5,8 +5,13 @@ export default function ImageCard({ img, window }) {
     return (
         <div className='ImageCard'>
             <Link to={`/corrections/${img._id}`}>
-                <img src={`data:image/png;base64,${img.imgSrc}`} width={200}/>
+                <h4 className='card-title'>{img.textData.fullText.split(" ").slice(0,2).join(" ")}...</h4>
+                <p>{img.textData.fullText}</p>
+                <div className='card-info'>
+                    <span className="corrections-count">{img.textData.corrections.length}</span>
+                </div>
             </Link>
         </div>
+       
     )
 }

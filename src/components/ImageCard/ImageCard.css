@@ -1,9 +1,36 @@
 .ImageCard {
     margin: 10px;
-
+    width: 150px;
+    height: 200px;
+    box-shadow: 0 1px 4px rgb(1 1 1 / 15%);
+    overflow: hidden;
+    padding: 5px;
+    transition: all 0.2s;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
 }
 
-.ImageCard img {
-    min-width: 300px;
-    max-width: 300px;
+.ImageCard:hover {
+    transform: scale(1.05);
 }
+
+.ImageCard a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-info {
+    position: absolute;
+    bottom: 0px;
+    height: 17%;
+    z-index: 10;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0 1px 4px rgb(1 1 1 / 15%);
+    margin-left: -5px;
+    padding: 5px 0px;
+}
+
+
+

@@ -1,0 +1,19 @@
+.ImgPreview {
+    background-color: black;
+    height: 100vh;
+}
+
+.ImgPreview img {
+    margin-bottom: 5vh;
+}
+
+.preview-btns {
+    display: flex;
+    justify-content: space-evenly;
+    width: 310px;
+}
+
+.preview-btns button {
+    width: 6em;
+    height: 3em;
+}

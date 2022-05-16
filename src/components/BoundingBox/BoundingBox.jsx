@@ -1,4 +1,6 @@
-export default function BoundingBox({ left, right, top, bottom, width, height }) {
+export default function BoundingBox({ left, right, top, bottom, issueType }) {
+    const backgroundColor = issueType === 'misspelling' ? 'rgba(215, 52, 53, 0.25)' : 'rgba(83, 110, 217, 0.4)';
+    const borderColor = issueType === 'misspelling' ? 'var(--red)' : 'var(--blue)';
     return (
         <div style={{
             position: 'absolute',
@@ -6,16 +8,11 @@ export default function BoundingBox({ left, right, top, bottom, width, height })
             right: `${right}%`,
             top: `${top}%`,
             bottom: `${bottom}%`,
-            borderBottom: 'solid 2px limegreen',
-            backgroundColor: "rgba(68,205,77, 0.2)",
+            borderBottom: `solid 2px ${borderColor}`,
+            backgroundColor: `${backgroundColor}`,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
         }}></div>
     )
 }
-
-// left: `${left}px`,
-// right: `${right}px`,
-// top: `${top}px`,
-// bottom: `${bottom}px`,
