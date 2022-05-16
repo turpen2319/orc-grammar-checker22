@@ -14,7 +14,6 @@ export default function ImageGrid() {
     useEffect(function() {
         async function getImages() {
             const images = await imagesApi.getAll();
-            console.log("\n\nImages!\n",images);
             setLoadingIndex(false)
             setImgIndex(images)
         }

@@ -23,7 +23,6 @@ async function getGrammarData(text) {
 
     try {
         const grammarData = await fetch(url, options).then(res => res.json());
-        console.log("GRAMMAR DATA", grammarData)
         return grammarData;
     } catch (error) {
         console.log("Error:", error)

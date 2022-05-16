@@ -10,14 +10,12 @@ module.exports = {
 }
 
 async function create(req, res) {
-    console.log('hitting create')
     try {
         const imgSrc = req.body.imgSrcBase64;
         const imageTextData = await handleGoogleApiCall(imgSrc);
-        console.log("GOOGLE Working",imageTextData)
-        console.log('BOUNDING BOX', imageTextData.words[0].boundingBox)
+        
         const grammarAndImageTextData = await integrateGrammarAndImageTextData(imageTextData);
-        console.log('COMPLETE DATA',grammarAndImageTextData);
+    
         const buffer = Buffer.from(imgSrc, "base64"); //convert to binary
         const newImage = await Image.create({user: req.user, imgSrc: buffer, textData: grammarAndImageTextData}) //storing src as binary...less expensive
         //Send back original base64 imgSrc, not binary. See 'transform' option on the image model
@@ -66,27 +64,15 @@ async function handleGoogleApiCall(base64Str) {
     try {
         //create file (handwriting api won't accept base64 as input...must be local file)
         fs.writeFile(fileName, base64Str, {encoding: 'base64'}, (err) => {
-            // console.log("READ FILE", fs.readFile(fileName, 'base64', (err, data) => {
-            //     if(err) {
-            //         console.log("FILE ERR", err)
-            //     }
-            //     console.log("FILE DATA", data);
-            // }
-            
-            // ));
             if (err) return console.error(err)
-            console.log('file saved to ', fileName)
         })
         
         //call api
-        console.log("DIRNAME!!!",__dirname)
         const textData = await getHandwritingData(fileName);
-        console.log("TEXT DATA",textData)
     
         //delete file
         fs.unlink(fileName, (err) => {
             if (err) throw err;
-            console.log('File deleted');
         });
        
         return textData;
@@ -99,11 +85,10 @@ async function handleGoogleApiCall(base64Str) {
 
 async function integrateGrammarAndImageTextData(textData) {
      const grammarData = await getGrammarData(textData.fullText);
-     console.log('GRAMMAR MATCHES FROM INT FUNC', grammarData.matches, 'WORDS DATA FROM FUNC', textData.words)
+
      textData['corrections'] = []
      for(let mistake of grammarData.matches) {
          for(let word of textData.words) {
-             console.log('MISTAKE:', mistake, 'WORD:', word, 'WORD OFFSET:', word['offset'])
              if(mistake.offset === word.offset && word.confidence > 0.85) {
                 mistake['boundingBox'] = word.boundingBox;
                 textData['corrections'].push(mistake);

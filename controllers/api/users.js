@@ -29,7 +29,7 @@ async function login(req, res) {
         const user = await User.findOne({'email':req.body.email});
         if(!user) throw new Error("user with that email doesn't exist")
         const match = await bcrypt.compare(req.body.password, user.password); 
-        console.log(match)
+    
         if(!match) throw new Error('username and/or password did not match')
         const token = createJWT(user)
         res.json(token);

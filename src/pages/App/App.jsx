@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import AuthPage from '../AuthPage/AuthPage';
-import ImageGrid from '../../components/ImageGrid/ImageGrid';
 import ImagePage from '../IndexPage/IndexPage';
 import ImageCorrections from '../ImageCorrections/ImageCorrections';
-import NavBar from '../../components/NavBar/NavBar';
-import ResponsiveDrawer from '../../components/ResponsiveDrawer/ResponsiveDrawer';
 import WebcamComponent from '../../components/WebcamComponent/WebcamComponent';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';

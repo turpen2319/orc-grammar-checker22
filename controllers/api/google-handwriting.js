@@ -2,28 +2,26 @@ module.exports = {
     getHandwritingData,
 }
 
-/**
- * TODO(developer): Uncomment the following line before running the sample.
- */
-
-
 // Read a local image as a text document
 async function getHandwritingData(fileName) {
-    // Imports the Google Cloud client library
+    // Import the Google Cloud client library
     const vision = require('@google-cloud/vision');
-    // Creates a client
+  
     const client = new vision.ImageAnnotatorClient();
 
 	//my data
     const textData = {fullText: '', imgSize: [], words: []}; //imgSize: [width, height]
 	
-	console.log("FILENAMEEEE",fileName);
+	
     const [result] = await client.documentTextDetection(fileName);
-	console.log("RESULTTTTTTT", result)
     const fullTextAnnotation = result.fullTextAnnotation;
+
+	//stops bad request if pic is sent with bad text data/no text detected
+	if (!fullTextAnnotation) return textData;
+
     const fullText = fullTextAnnotation.text;
 	textData.fullText = fullText;
-    //console.log(`Full text: ${fullText}`);
+   
     let cursor = 0;  
     fullTextAnnotation.pages.forEach(page => {
 		const imageWidth = fullTextAnnotation.pages[0].width;
@@ -31,47 +29,40 @@ async function getHandwritingData(fileName) {
 		textData.imgSize[0] = imageWidth;
 		textData.imgSize[1] = imageHeight;  
 
-		//console.log({imageWidth, imageHeight})
-		page.blocks.forEach(block => {
-			// console.log(`Block confidence: ${block.confidence}`);
-			block.paragraphs.forEach(paragraph => {
-			//   console.log(`Paragraph confidence: ${paragraph.confidence}`);
-			paragraph.words.forEach((word, idx) => {
-				const wordText = word.symbols.map(s => s.text).join('');
-				// console.log(`Word text: ${wordText}`);
-				// console.log(`Word confidence: ${word.confidence}`);
-				const vertices = word.boundingBox.vertices;
-				// console.log('Verticies', vertices);  
 		
-				const offset = fullText.indexOf(wordText, cursor); //starting index of current word at or after the cursor position "hello hello".indexOf('hello', 0) --> gives first hello and indexOf('hello', 5) --> gives second
-				cursor = offset + wordText.length; //update cursor position. In above example, cursor would be at idx 0+5 --> 5  "hello|hello"
+		page.blocks.forEach(block => {
+			block.paragraphs.forEach(paragraph => {
+				paragraph.words.forEach((word, idx) => {
+					const wordText = word.symbols.map(s => s.text).join('');
+				
+					const vertices = word.boundingBox.vertices;
+					
+			
+					const offset = fullText.indexOf(wordText, cursor);
+					cursor = offset + wordText.length; //update cursor position. In above example, cursor would be at idx 0+5 --> 5  "hello|hello"
 
-				textData.words.push({
-					text: wordText,
-					confidence: word.confidence,
-					boundingBox: { //calculate percentages for easy styling...some strange stuff going on with css
-						left: ((vertices[3].x > vertices[0].x ? vertices[3].x : vertices[0].x) / imageWidth) * 100, // ((leftmost x) / width) * 100 
-						right: ((imageWidth - (vertices[2].x > vertices[1].x ? vertices[2].x : vertices[1].x)) / imageWidth) * 100, // ((width - leftmost x) / width) * 100
-						top: ((vertices[1].y > vertices[0].y ? vertices[1].y : vertices[0].y) / imageHeight) * 100, // (bottom-most y / height) * 100 
-						bottom: ((imageHeight - (vertices[3].y > vertices[2].y ? vertices[3].y : vertices[2].y)) / imageHeight) * 100 // ((height - topmost y) / height) * 100
-					},
-					offset: offset,
-					x1: vertices[0].x,
-					y1: vertices[0].y,
-					x2: vertices[1].x,
-					y2: vertices[1].y,
-					x3: vertices[2].x,
-					y3: vertices[2].y,
-					x4: vertices[3].x,
-					y4: vertices[3].y,
-				})
-    
-            //const offset = fullText.indexOf(wordText, cursor);
-            //cursor = offset + wordLength;
-            
-          });
-        });
-      });
+					textData.words.push({
+						text: wordText,
+						confidence: word.confidence,
+						boundingBox: { //calculate percentages for easy styling...some strange stuff going on with css
+							left: ((vertices[3].x > vertices[0].x ? vertices[3].x : vertices[0].x) / imageWidth) * 100, // ((leftmost x) / width) * 100 
+							right: ((imageWidth - (vertices[2].x > vertices[1].x ? vertices[2].x : vertices[1].x)) / imageWidth) * 100, // ((width - leftmost x) / width) * 100
+							top: ((vertices[1].y > vertices[0].y ? vertices[1].y : vertices[0].y) / imageHeight) * 100, // (bottom-most y / height) * 100 
+							bottom: ((imageHeight - (vertices[3].y > vertices[2].y ? vertices[3].y : vertices[2].y)) / imageHeight) * 100 // ((height - topmost y) / height) * 100
+						},
+						offset: offset,
+						x1: vertices[0].x,
+						y1: vertices[0].y,
+						x2: vertices[1].x,
+						y2: vertices[1].y,
+						x3: vertices[2].x,
+						y3: vertices[2].y,
+						x4: vertices[3].x,
+						y4: vertices[3].y,
+					})
+				});
+        	});
+    	});
     });
     return textData;
 }

@@ -94,6 +94,7 @@ export default function MobileCorrectionsDrawer({ corrections }) {
                         issueType={correction.rule.issueType} 
                         replacements={correction.replacements}
                         incorrectText={text.slice(offset, offset + length)}
+                        key={idx}
                     />
                 )
             })
