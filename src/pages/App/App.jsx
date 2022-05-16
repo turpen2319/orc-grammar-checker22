@@ -10,6 +10,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service'
 import ImgPreview from '../ImgPreview/ImgPreview';
+import ImageCorrectionsSkeleton from '../../components/ImageCorrectionsSkeleton/ImageCorrectionsSkeleton';
 
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
             {/* <ResponsiveDrawer user={user} setUser={setUser}/> */}
             <Routes>
               <Route path="/" element={<ImagePage user={user} setUser={setUser}/>} />
+              <Route path="/load/corrections" element={<ImageCorrectionsSkeleton />} />
               <Route path="/corrections/:imageId" element={<ImageCorrections setUser={setUser} />} />
               <Route path="/webcam" element={<WebcamComponent imgSrc={imgSrc} setImgSrc={setImgSrc} />} />
               <Route path="/preview" element={<ImgPreview imgSrc={imgSrc} />} />

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import BoundingBox from "../../components/BoundingBox/BoundingBox";
 import CorrectionMessage from "../../components/CorrectionMessage/CorrectionMessage";
 import MobileCorrectionsDrawer from "../../components/MobileCorrectionsDrawer/MobileCorrectionsDrawer";
+import ImageCorrectionsSkeleton from "../../components/ImageCorrectionsSkeleton/ImageCorrectionsSkeleton";
 import SpeedDialMenu from "../../components/SpeedDial/SpeedDial";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import * as imageApi from "../../utilities/images-api";
@@ -41,6 +42,7 @@ export default function ImageCorrections({ setUser }) {
                                         top={correction.boundingBox.top}
                                         bottom={correction.boundingBox.bottom}
                                         issueType={correction.rule.issueType}
+                                        key={idx}
                                     />
                                 )
                             })
@@ -63,17 +65,18 @@ export default function ImageCorrections({ setUser }) {
                                                 issueType={correction.rule.issueType} 
                                                 replacements={correction.replacements}
                                                 incorrectText={text.slice(offset, offset + length)}
+                                                key={idx}
                                             />
                                         )
                                     })
                                 }
-                        </div>
+                            </div>
                         )
                     }
                     
                 </>
             )
-            : <h3>Loading</h3>
+            : <ImageCorrectionsSkeleton />
             }
         </main>
     )

@@ -35,7 +35,7 @@ async function index(req, res) {
     try {
         Image
             .find({user: req.user})
-            .sort('-date')
+            .sort('-createdAt')
             .select('-imgSrc')
             .exec(
                 function(err, imgs) {
