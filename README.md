@@ -6,7 +6,7 @@
 
 Full stack MERN app that checks grammar and spelling from images of handwriting. Take a photo of your document from the in-app camera, submit it, and see how you can improve your writing! Link --> https://grammar-vision.wl.r.appspot.com
 
-This app utilizes optical character recognition (ORC) to convert images of handwriting into plain text, which is then checked for spelling and grammar. The grammar data is integrated with the image data in order to annotate the original image.   
+This app utilizes optical character recognition (OCR) to convert images of handwriting into plain text, which is then checked for spelling and grammar. The grammar data is integrated with the image data in order to annotate the original image.   
 
 ## Screenshots
 
